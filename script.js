@@ -12,6 +12,7 @@ function cardRotation(element) {
 }
 
 function addCardToScreen(cardAmount) {
+    const parrotsGifs = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metalparrot.gif", "revertitparrot.gif", "tripletsparrot.gif", "unicornparrot.gif"]
     const cardsContainer = document.querySelector(".cards");
     for (let i = 0; i < cardAmount; i++) {
         cardsContainer.innerHTML += ` 
@@ -21,7 +22,7 @@ function addCardToScreen(cardAmount) {
         </div>
 
         <div class="back-face face">
-            <img src="Parrots Gifs/unicornparrot.gif" alt="unicorn parrot">
+            <img src="Parrots Gifs/${parrotsGifs[i]}" alt="unicorn parrot">
         </div>
     </div>
     <div class="`

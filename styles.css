@@ -59,6 +59,10 @@ h1 {
       width: 150px;
   }
 
+  .back-face img {
+    width: 150px;
+  }
+  
 
   .back-face {
     transform: rotateY(180deg);
