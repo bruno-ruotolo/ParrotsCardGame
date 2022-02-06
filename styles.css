@@ -18,6 +18,7 @@ h1 {
     font-size: 56px;
     color:#75B79E;
     margin: 40px auto 47px auto;
+    text-align: center;
 }
 
 .cards {
@@ -27,7 +28,7 @@ h1 {
   /* margin-right: 30px; */
   justify-content: center;
   height: 100%;
-  margin-left: 122px;
+  margin-left: 122px; 
   margin-right: 122px;
 }
 
