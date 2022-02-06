@@ -1,31 +1,41 @@
 *{
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #EEF9BF;
-    font-family: 'Roboto', sans-serif;
+  background-color: #EEF9BF;
+  font-family: 'Roboto', sans-serif;
+  /* background-color: red; */
 
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: blue; */
+  width: 100%;
 }
 
 h1 {
-    font-size: 56px;
-    color:#75B79E;
-    margin: 40px auto 47px auto;
-    text-align: center;
+  font-size: 56px;
+  color:#75B79E;
+  margin: 40px auto 47px auto;
+  text-align: center;
 }
 
-.cards {
+aside p {
+  position: absolute;
+  top: 150px;
+  right:70px;
+  font-size: 50px;
+  color: red;
+}
+
+section {
   flex-wrap: wrap;
   display: flex;
   align-items: center;
-  /* margin-right: 30px; */
   justify-content: center;
   height: 100%;
   margin-left: 122px; 
@@ -33,46 +43,46 @@ h1 {
 }
 
 .card {
-    width: 200px;
-    height: 250px;
-    position: relative;
-    margin-left: 34px;
-    margin-bottom: 34px;
-  }
+  width: 200px;
+  height: 250px;
+  position: relative;
+  margin-left: 34px;
+  margin-bottom: 34px;
+}
 
-  .face {
-    width: 100%;
-    height: 100%;
-    background-color: #A7E9AF;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    backface-visibility: hidden;
-    transition: all .5s;
-    transform-style: preserve-3d;
-  }
+.face {
+  width: 100%;
+  height: 100%;
+  background-color: #A7E9AF;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  backface-visibility: hidden;
+  transition: all .5s;
+  transform-style: preserve-3d;
+}
 
-  .front-face img {
-      height: 150px;
-      width: 150px;
-  }
+.front-face img {
+  height: 150px;
+  width: 150px;
+}
 
-  .back-face img {
-    width: 150px;
-  }
-  
+.back-face img {
+  width: 150px;
+}
 
-  .back-face {
-    transform: rotateY(180deg);
-  }
 
-  .card.rotate .back-face {
-    transform: rotateY(0deg);
-  }
+.back-face {
+  transform: rotateY(180deg);
+}
 
-  .card.rotate .front-face{
-    transform: rotateY(-180deg);
-  }
+.card.rotate .back-face {
+  transform: rotateY(0deg);
+}
+
+.card.rotate .front-face{
+  transform: rotateY(-180deg);
+}

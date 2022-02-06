@@ -57,9 +57,12 @@ function rotateWrongPairCards() {
 function finalGameAlertMessage() {
 
     if (correctPairsCounter === cardAmount / 2) {
-        alert(`Você ganhou em ${movesCounter} jogadas!`)
+        clearInterval(timer);
+        alert(`Você ganhou em ${movesCounter} jogadas e em ${secondsTimer} segundos!`);
+        reloadGameFunction();
+
     }
-    reloadGameFunction()
+
 
 }
 
@@ -88,7 +91,7 @@ function sorterCardAmount(amount) {
 
 
 function addCardToScreen() {
-    const cardsContainer = document.querySelector(".cards");
+    const cardsContainer = document.querySelector("section");
     sorterCardAmount(cardAmount);
     for (let i = 0; i < cardAmount; i++) {
         cardsContainer.innerHTML += ` 
@@ -118,7 +121,16 @@ function reloadGameFunction() {
     else if (reloadGameQuestion === "n") { window.close() }
 }
 
+let secondsTimer = 0;
+function timer() {
 
+    const timerQuery = document.querySelector("aside");
+    if (movesCounter !== 0) {
+        secondsTimer++;
+    }
+    timerQuery.innerHTML = `<p>${secondsTimer}</p>`;
+}
 
+setInterval(timer, 1000);
 askCardAmount();
 addCardToScreen();
