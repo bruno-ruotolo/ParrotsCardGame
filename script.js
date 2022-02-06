@@ -1,5 +1,7 @@
 let cardAmount = null;
 let movesCounter = 0;
+let correctPairsCounter = null;
+
 
 function askCardAmount() {
     cardAmount = parseInt(prompt("Quantas cartas você deseja? (números pares de 4 à 14)"));
@@ -17,11 +19,12 @@ let cardContainerSecond = null;
 function cardRotation(element) {
     element.classList.add("rotate");
     movesCounter++;
-    couplesCardsTest(element);
-    setTimeout(rotateWrongCoupleCards, 1000);
+    pairsCardsTest(element);
+    setTimeout(rotateWrongPairCards, 1000);
+    setTimeout(finalGameAlertMessage, 100);
 }
 
-function couplesCardsTest(element) {
+function pairsCardsTest(element) {
 
     if (movesCounter % 2 !== 0) {
         cardContainerFirst = (element.querySelector(".back-face img"));
@@ -32,9 +35,16 @@ function couplesCardsTest(element) {
         cardContainerSecond = (element.querySelector(".back-face img"));
         cardContainerSecondClassName = cardContainerSecond.className;
     }
+
+    if (cardContainerSecondClassName === cardContainerFirstClassName && cardContainerSecond !== null && cardContainerFirst !== null) {
+        console.log("Acertou");
+        cardContainerFirst = null;
+        cardContainerSecond = null;
+        correctPairsCounter++;
+    }
 }
-let rightCoupleCounter = 0;
-function rotateWrongCoupleCards() {
+
+function rotateWrongPairCards() {
 
     if (cardContainerSecondClassName !== cardContainerFirstClassName && cardContainerSecond !== null && cardContainerFirst !== null) {
         cardContainerFirst.parentNode.parentNode.classList.remove("rotate");
@@ -42,16 +52,15 @@ function rotateWrongCoupleCards() {
         cardContainerFirst = null;
         cardContainerSecond = null;
     }
-    else if (cardContainerSecondClassName === cardContainerFirstClassName && cardContainerSecond !== null && cardContainerFirst !== null) {
-        console.log("Acertou");
-        cardContainerFirst = null;
-        cardContainerSecond = null;
-        rightCoupleCounter++;
-    }
+}
 
-    if (rightCoupleCounter === cardAmount / 2) {
-        alert(`Você ganhou em ${movesCounter} jogadas!`);
+function finalGameAlertMessage() {
+
+    if (correctPairsCounter === cardAmount / 2) {
+        alert(`Você ganhou em ${movesCounter} jogadas!`)
     }
+    reloadGameFunction()
+
 }
 
 
@@ -97,7 +106,17 @@ function addCardToScreen() {
 
 }
 
+function reloadGameFunction() {
+    let reloadGameQuestion = null;
+    if (correctPairsCounter === cardAmount / 2) {
+        reloadGameQuestion = prompt("Quer jogar novamente? (Digite 's' ou 'n')")
+    }
 
+    if (reloadGameQuestion === "s") {
+        location.reload();
+    }
+    else if (reloadGameQuestion === "n") { window.close() }
+}
 
 
 
