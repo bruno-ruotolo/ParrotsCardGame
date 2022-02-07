@@ -2,7 +2,6 @@ let cardAmount = null;
 let movesCounter = 0;
 let correctPairsCounter = null;
 
-
 function askCardAmount() {
     cardAmount = parseInt(prompt("Quantas cartas você deseja? (números pares de 4 à 14)"));
 
@@ -20,7 +19,7 @@ function cardRotation(element) {
     element.classList.add("rotate");
     movesCounter++;
     pairsCardsTest(element);
-    setTimeout(rotateWrongPairCards, 1000);
+    setTimeout(rotateWrongPairCards, 1200);
     setTimeout(finalGameAlertMessage, 100);
 }
 
@@ -34,10 +33,10 @@ function pairsCardsTest(element) {
     else {
         cardContainerSecond = (element.querySelector(".back-face img"));
         cardContainerSecondClassName = cardContainerSecond.className;
+        alertCounter = 1;
     }
 
     if (cardContainerSecondClassName === cardContainerFirstClassName && cardContainerSecond !== null && cardContainerFirst !== null) {
-        console.log("Acertou");
         cardContainerFirst = null;
         cardContainerSecond = null;
         correctPairsCounter++;
@@ -51,6 +50,7 @@ function rotateWrongPairCards() {
         cardContainerSecond.parentNode.parentNode.classList.remove("rotate");
         cardContainerFirst = null;
         cardContainerSecond = null;
+        alertCounter = 0;
     }
 }
 
@@ -58,14 +58,11 @@ function finalGameAlertMessage() {
 
     if (correctPairsCounter === cardAmount / 2) {
         clearInterval(timer);
-        alert(`Você ganhou em ${movesCounter} jogadas e em ${secondsTimer} segundos!`);
+        alert(`Você ganhou em ${movesCounter} jogadas! \nVocê levou ${secondsTimer} segundos para ganhar!`);
         reloadGameFunction();
 
     }
-
-
 }
-
 
 let parrotsGifs = ['bobrossparrot.gif', 'explodyparrot.gif', 'fiestaparrot.gif', 'metalparrot.gif', 'revertitparrot.gif', 'tripletsparrot.gif', 'unicornparrot.gif'];
 parrotsGifs.sort(randomNumber);
@@ -75,9 +72,7 @@ function randomNumber() {
     return Math.random() - 0.5;
 }
 
-
-
-let sorter = []; // para ver no console
+let sorter = [];
 function sorterCardAmount(amount) {
     for (let i = 0; i < amount / 2; i++) {
         sorter.push(i);
@@ -89,22 +84,20 @@ function sorterCardAmount(amount) {
     sorter.sort(randomNumber);
 }
 
-
 function addCardToScreen() {
     const cardsContainer = document.querySelector("section");
     sorterCardAmount(cardAmount);
     for (let i = 0; i < cardAmount; i++) {
         cardsContainer.innerHTML += ` 
-        <div class="card" onclick="cardRotation(this)">
-            <div class="front-face face">
+        <button class="card" data-identifier="card" onclick="cardRotation(this)">
+            <div class="front-face face" data-identifier="back-face" >
                 <img src="Parrots Gifs/front.png" alt="Frente da Carta">
             </div>
 
-            <div class="back-face face">
+            <div class="back-face face" data-identifier="front-face">
                 <img class= "${parrotsGifs[(sorter[i])]}" src="Parrots Gifs/${parrotsGifs[(sorter[i])]}" alt="unicorn parrot">
             </div>
-        </div>`
-
+        </button>`
     }
 
 }
@@ -118,12 +111,17 @@ function reloadGameFunction() {
     if (reloadGameQuestion === "s") {
         location.reload();
     }
-    else if (reloadGameQuestion === "n") { window.close() }
+    else if (reloadGameQuestion === "n") {
+        const creditsScreen = document.querySelector("article").classList.remove("hidden");
+        clearInterval(timerInterval);
+    }
+    else {
+        reloadGameFunction();
+    }
 }
 
 let secondsTimer = 0;
 function timer() {
-
     const timerQuery = document.querySelector("aside");
     if (movesCounter !== 0) {
         secondsTimer++;
@@ -131,6 +129,25 @@ function timer() {
     timerQuery.innerHTML = `<p>${secondsTimer}</p>`;
 }
 
-setInterval(timer, 1000);
+
+function disableButton() {
+    const buttonSelector = document.querySelectorAll("button");
+    for (let i = 0; i < buttonSelector.length; i++) {
+        if (buttonSelector[i].classList.contains("rotate")) {
+            buttonSelector[i].disabled = true;
+        }
+
+        else if (buttonSelector[i].classList.contains("rotate") == false) {
+            buttonSelector[i].disabled = false;
+        }
+    }
+}
+
+function reloadPage() {
+    location.reload();
+}
+
+setInterval(disableButton, 100);
+const timerInterval = setInterval(timer, 1000);
 askCardAmount();
 addCardToScreen();
