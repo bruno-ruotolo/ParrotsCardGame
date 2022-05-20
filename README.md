@@ -11,10 +11,9 @@ This is a memory game application where you nave to match the cards with the sam
 Include features like: 
 
 - Turning cards animations
-- Timer
+- Counter
 - Random distribution of cards in each game
 - Option to choose the cards quantity
-- Play against CPU 
 
 ## Technologies
 The following tools, frameworks and languages were used in this project:<br>
